@@ -1,0 +1,17 @@
+{
+    "name": "Angular Material Extensions Devcontainer",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "angular-material-extensions",
+    "workspaceFolder": "/workspace",
+    "postCreateCommand": "npm install",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "angular.ng-template",
+                "dbaeumer.vscode-eslint",
+                "editorconfig.editorconfig",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    }
+  }
