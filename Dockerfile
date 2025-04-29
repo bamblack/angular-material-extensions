@@ -4,11 +4,13 @@ FROM node:20
 # Set the WORKDIR to the project root
 WORKDIR /workspace
 
-# Install Angular CLI globally in the container (not in the docker/ subfolder)
+# Install Angular CLI globally
 RUN npm install -g @angular/cli@19
+# Install Storybook CLI globally
+RUN npm install -g storybook@8
 
-# Enable Yarn if you want it
-RUN corepack enable && corepack prepare yarn@stable --activate
+# Expose Storybook's default port
+EXPOSE 6006
 
 # Default command
 CMD ["bash"]
