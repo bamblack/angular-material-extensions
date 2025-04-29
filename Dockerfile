@@ -6,6 +6,8 @@ WORKDIR /workspace
 
 # Install Angular CLI globally
 RUN npm install -g @angular/cli@19
+RUN ng config -g cli.completion.prompted true
+
 # Install Storybook CLI globally
 RUN npm install -g storybook@8
 
