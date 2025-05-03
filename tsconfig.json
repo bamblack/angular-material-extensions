@@ -20,9 +20,6 @@
     "paths": {
       "components": [
         "./dist/components"
-      ],
-      "test": [
-        "./dist/test"
       ]
     }
   },
