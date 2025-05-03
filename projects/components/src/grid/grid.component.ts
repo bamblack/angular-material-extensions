@@ -1,22 +1,35 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { ColDef } from './columns/column';
+import { AmxGridColumnAPi } from './columns/column.api';
 import { AmxGridApi } from './grid.api';
 
 @Component({
     selector: 'amx-grid',
-    imports: [MatPaginatorModule, MatSortModule, MatTableModule],
-    templateUrl: './grid.component.html',
+    imports: [CommonModule, MatPaginatorModule, MatSortModule, MatTableModule],
     styleUrl: './grid.component.css',
-    providers: [AmxGridApi],
+    templateUrl: './grid.component.html',
+    providers: [AmxGridColumnAPi, AmxGridApi],
     exportAs: 'amxGrid',
 })
-export class AmxGrid {
-    protected displayedColumns: string[] = [
-        'position',
-        'name',
-        'weight',
-        'symbol',
-    ];
+export class AmxGrid implements OnChanges, OnInit {
+    @Input() columnDefinitions: ColDef[] = [];
+
+    constructor(
+        public api: AmxGridApi
+    ) { }
+
+    /////////////////////
+    // Lifecycle Hooks //
+    /////////////////////
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes['columnDefinitions']) {
+            this.api.columns.setColumnDefinitions(changes['columnDefinitions'].currentValue);
+        }
+    }
+
+    public ngOnInit(): void { }
 }
