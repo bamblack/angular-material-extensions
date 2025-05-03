@@ -1,6 +1,6 @@
 # Angular Material Extensions
 
-A modular Angular component library designed for seamless integration with Angular Material.
+An Angular component library designed for seamless integration with Angular Material.
 
 ## 🚀 Getting Started
 
@@ -29,7 +29,7 @@ VS Code will build the Docker container as defined in `.devcontainer/devcontaine
 
 ## 📖 Storybook Integration
 
-Storybook is integrated for isolated component development and documentation.
+Storybook is integrated for isolated component development and documentation. Ensure stories are added alongside their respective components in the `src` directory.
 
 ### Running Storybook
 
@@ -53,13 +53,13 @@ The static files will be generated in the `storybook-static` directory.
 
 ## 🧪 Testing Components
 
-Component tests can be written using Angular's testing utilities. To run tests:
+Component tests can be written using Angular's testing utilities. This project uses Jest for unit testing. To run tests:
 
 ```bash
 ng test
 ```
 
-Ensure tests are added alongside their respective components in the `src/lib` directory.
+Ensure tests are added alongside their respective components in the `src` directory.
 
 ## 📄 License
 

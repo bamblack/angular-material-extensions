@@ -11,7 +11,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # Install Angular CLI globally
-RUN npm install -g @angular/cli@19 jest@29
+RUN npm install -g @angular/cli@19 jest@29 typescript
 RUN ng config -g cli.completion.prompted true
 
 # Copy the rest of the project files
