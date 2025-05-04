@@ -10,17 +10,24 @@
     top: 0px;
 }
 
+.amx-grid_filters--container,
 .amx-grid_total-results--container {
     border-bottom: var(--mat-table-row-item-outline-width, 1px) solid
         var(
             --mat-table-row-item-outline-color,
             var(--mat-sys-outline, rgba(0, 0, 0, 0.12))
         );
+}
+
+.amx-grid_total-results--container {
+    align-items: center;
     color: #999;
+    display: flex;
     font-size: var(
         --mat-table-row-item-label-text-size,
         var(--mat-sys-body-medium-size, 14px)
     );
+    gap: 16px;
     padding: 16px 24px;
 }
 

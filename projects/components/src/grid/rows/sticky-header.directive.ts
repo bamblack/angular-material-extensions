@@ -11,7 +11,6 @@ import {
 
 @Directive({
     selector: '[amxGridStickyHeader]',
-    standalone: true,
     exportAs: 'amxGridStickyHeader',
 })
 export class AmxGridStickyHeader implements OnChanges, AfterViewInit, OnDestroy {
