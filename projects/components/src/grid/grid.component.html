@@ -1,5 +1,13 @@
-<div class="amx-grid-wrapper">
-    <mat-table>
+<div class="amx-grid--container">
+    <div #aboveTableContainer class="amx-grid_above-table--container">
+        <div class="amx-grid_filters--container">
+            Eventually filters will be placed here
+        </div>
+        <div class="amx-grid_total-results--container">
+            Eventually total results count and a bulk actions bar will be placed here
+        </div>
+    </div>
+    <mat-table [dataSource]="api.rows.dataSource">
         <ng-container
             *ngFor="let column of api.columns.columnDefintions"
             [matColumnDef]="column.id"
@@ -14,7 +22,10 @@
             </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="api.columns.matColumns"></mat-header-row>
+        <mat-header-row
+            *matHeaderRowDef="api.columns.matColumns; sticky: stickyHeader"
+            [ngStyle]="{ '--amx-sticky-header-top': stickyHeaderOffset + 'px' }">
+        ></mat-header-row>
         <mat-row *matRowDef="let row; columns: api.columns.matColumns"></mat-row>
     </mat-table>
 </div>

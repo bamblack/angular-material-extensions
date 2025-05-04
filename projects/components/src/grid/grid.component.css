@@ -1,0 +1,16 @@
+.amx-grid_above-table--container {
+    background: var(--mat-table-background-color, #fff);
+    display: flex;
+    flex-direction: column;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0px;
+}
+
+/**
+ * This allows us to override the inline styling
+ * that mat-table applies for sticky header rows
+ */
+:host ::ng-deep .mat-mdc-header-row {
+    top: var(--amx-sticky-header-top, 0px) !important;
+}

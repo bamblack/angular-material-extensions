@@ -25,13 +25,18 @@ export class AmxGridColumnAPi {
     ////////////////////
     // Public Methods //
     ////////////////////
+    public getColumnDefinition(id: string): ColDef | undefined {
+        return this.__columnMap.get(id);
+    }
+
     public setColumnDefinitions(columns: ColDef[]): void {
         this.__columnMap.clear();
         if (!columns || !Array.isArray(columns)) {
             throw new Error("Invalid column definitions provided. Expected an array of ColDef.");
         }
 
-        this.__columnDefinitions = columns;
+        // TODO: add built-in columns here
+
         columns.forEach(col => {
             if (!col) {
                 throw new Error("Column definition cannot be null or undefined.");
@@ -45,7 +50,9 @@ export class AmxGridColumnAPi {
                 throw new Error(`Duplicate column ID found: ${col.id}. Each column must have a unique 'id' property.`);
             }
 
-            this.__columnMap.set(col.id, col);
+            const localCol = { ...col }; // create a shallow copy to avoid mutating the original object
+            this.__columnMap.set(col.id, localCol);
+            this.__columnDefinitions.push(localCol);
             this.__matColumns.push(col.id);
         });
     }
