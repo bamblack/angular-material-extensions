@@ -28,7 +28,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\n    title: 'Components/Grid',\n    component: AmxGrid,\n    tags: ['autodocs'],\n}"
+                "defaultValue": "{\n    title: 'Components/Grid',\n    component: AmxGrid,\n    tags: ['autodocs'],\n    args: {\n        dataSource: periodicData,\n        columnDefinitions: [\n            { id: 'number', field: 'number', headerName: 'Number', type: 'number' },\n            { id: 'name', field: 'name', headerName: 'Name', type: 'string' },\n            { id: 'symbol', field: 'symbol', headerName: 'Symbol', type: 'string' },\n            { id: 'weight', field: 'atomic_mass', headerName: 'Weight', type: 'number' },\n            { id: 'category', field: 'category', headerName: 'Category', type: 'string' },\n            { id: 'group', field: 'group', headerName: 'Group', type: 'string' },\n            { id: 'period', field: 'period', headerName: 'Period', type: 'number' },\n            { id: \"discovered_by\", field: \"discovered_by\", headerName: \"Discovered By\", type: \"string\" },\n            { id: \"named_by\", field: \"named_by\", headerName: \"Named By\", type: \"string\" }\n        ],\n        stickyHeader: false\n    }\n}"
             },
             {
                 "name": "preview",
@@ -76,7 +76,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\n    title: 'Components/Grid',\n    component: AmxGrid,\n    tags: ['autodocs'],\n}"
+                    "defaultValue": "{\n    title: 'Components/Grid',\n    component: AmxGrid,\n    tags: ['autodocs'],\n    args: {\n        dataSource: periodicData,\n        columnDefinitions: [\n            { id: 'number', field: 'number', headerName: 'Number', type: 'number' },\n            { id: 'name', field: 'name', headerName: 'Name', type: 'string' },\n            { id: 'symbol', field: 'symbol', headerName: 'Symbol', type: 'string' },\n            { id: 'weight', field: 'atomic_mass', headerName: 'Weight', type: 'number' },\n            { id: 'category', field: 'category', headerName: 'Category', type: 'string' },\n            { id: 'group', field: 'group', headerName: 'Group', type: 'string' },\n            { id: 'period', field: 'period', headerName: 'Period', type: 'number' },\n            { id: \"discovered_by\", field: \"discovered_by\", headerName: \"Discovered By\", type: \"string\" },\n            { id: \"named_by\", field: \"named_by\", headerName: \"Named By\", type: \"string\" }\n        ],\n        stickyHeader: false\n    }\n}"
                 }
             ],
             "projects/components/.storybook/preview.ts": [

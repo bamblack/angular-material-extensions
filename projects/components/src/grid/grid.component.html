@@ -1,31 +1,32 @@
-<div class="amx-grid--container">
-    <div #aboveTableContainer class="amx-grid_above-table--container">
-        <div class="amx-grid_filters--container">
-            Eventually filters will be placed here
-        </div>
-        <div class="amx-grid_total-results--container">
-            Eventually total results count and a bulk actions bar will be placed here
-        </div>
+<div
+    #aboveTableContainer
+    class="amx-grid_above-table--container"
+    [style.position]="stickyHeader ? 'sticky' : 'static'"
+>
+    <div class="amx-grid_total-results--container">
+        {{ api.rows.dataSource.data.length }} results
     </div>
-    <mat-table [dataSource]="api.rows.dataSource">
-        <ng-container
-            *ngFor="let column of api.columns.columnDefintions"
-            [matColumnDef]="column.id"
-            [sticky]="column.sticky === 'left'"
-            [stickyEnd]="column.sticky === 'right'"
-        >
-            <mat-header-cell *matHeaderCellDef>
-                {{ column.headerName ?? column.field }}
-            </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                {{ element[column.field] }}
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row
-            *matHeaderRowDef="api.columns.matColumns; sticky: stickyHeader"
-            [ngStyle]="{ '--amx-sticky-header-top': stickyHeaderOffset + 'px' }">
-        ></mat-header-row>
-        <mat-row *matRowDef="let row; columns: api.columns.matColumns"></mat-row>
-    </mat-table>
 </div>
+<mat-table [dataSource]="api.rows.dataSource">
+    <ng-container
+        *ngFor="let column of api.columns.columnDefintions"
+        [matColumnDef]="column.id"
+        [sticky]="column.sticky === 'left'"
+        [stickyEnd]="column.sticky === 'right'"
+    >
+        <mat-header-cell *matHeaderCellDef>
+            {{ column.headerName ?? column.field }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{ element[column.field] }}
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+        *matHeaderRowDef="api.columns.matColumns; sticky: stickyHeader"
+        [amxGridStickyHeader]="aboveTableElement"
+        [amxGridStickyHeaderSticky]="stickyHeader"
+    >
+    </mat-header-row>
+    <mat-row *matRowDef="let row; columns: api.columns.matColumns"></mat-row>
+</mat-table>

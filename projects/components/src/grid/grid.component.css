@@ -1,10 +1,27 @@
+:host {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    position: relative;
+}
+
 .amx-grid_above-table--container {
     background: var(--mat-table-background-color, #fff);
     display: flex;
     flex-direction: column;
-    padding: 16px 24px;
-    position: sticky;
     top: 0px;
+}
+
+.amx-grid_total-results--container {
+    border-bottom: var(--mat-table-row-item-outline-width, 1px) solid
+        var(
+            --mat-table-row-item-outline-color,
+            var(--mat-sys-outline, rgba(0, 0, 0, 0.12))
+        );
+    color: #999;
+    font-size: var(
+        --mat-table-row-item-label-text-size,
+        var(--mat-sys-body-medium-size, 14px)
+    );
+    padding: 16px 24px;
 }
 
 /**

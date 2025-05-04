@@ -18,7 +18,8 @@ const meta = {
             { id: 'period', field: 'period', headerName: 'Period', type: 'number' },
             { id: "discovered_by", field: "discovered_by", headerName: "Discovered By", type: "string" },
             { id: "named_by", field: "named_by", headerName: "Named By", type: "string" }
-        ]
+        ],
+        stickyHeader: false
     }
 };
 export default meta;

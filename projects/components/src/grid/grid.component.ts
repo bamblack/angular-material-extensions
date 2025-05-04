@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterViewInit,
     Component,
     ElementRef,
     Input,
@@ -12,31 +11,39 @@ import {
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { ColDef } from './columns/column';
 import { AmxGridColumnAPi } from './columns/column.api';
+import { AmxGridDataApi } from './data/data.api';
 import { AmxGridApi } from './grid.api';
 import { AmxGridRowsApi } from './rows/rows.api';
+import { AmxGridStickyHeader } from './rows/sticky-header.directive';
 
 @Component({
     selector: 'amx-grid',
-    imports: [CommonModule, MatPaginatorModule, MatSortModule, MatTableModule],
+    imports: [
+        // Agular modules
+        CommonModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        // AmxGrid sub-modules
+        AmxGridStickyHeader,
+    ],
     styleUrl: './grid.component.css',
     templateUrl: './grid.component.html',
-    providers: [AmxGridColumnAPi, AmxGridApi, AmxGridRowsApi],
+    providers: [AmxGridApi, AmxGridColumnAPi, AmxGridDataApi, AmxGridRowsApi],
     exportAs: 'amxGrid',
 })
-export class AmxGrid<TData = any> implements OnChanges, OnInit, AfterViewInit {
+export class AmxGrid<TData = any> implements OnChanges, OnInit {
     @Input({ required: true }) columnDefinitions: ColDef[] = [];
-    @Input() dataSource?: TData[];
+    @Input() dataSource?: TData[] | Observable<TData[]>;
     @Input() stickyFooter = true;
     @Input() stickyHeader = true;
 
-
     @ViewChild('aboveTableContainer', { static: true, read: ElementRef })
-    protected aboveTableContainer!: ElementRef<HTMLElement>;
+    protected aboveTableElement!: ElementRef<HTMLElement>;
     protected stickyHeaderOffset = 0;
-
-    private aboveTableContainerResizeObserver!: ResizeObserver;
 
     constructor(public api: AmxGridApi<TData>) {}
 
@@ -51,24 +58,11 @@ export class AmxGrid<TData = any> implements OnChanges, OnInit, AfterViewInit {
         }
 
         if (changes['dataSource']) {
-            this.api.rows.setGridData(changes['dataSource'].currentValue);
+            this.api.data.initializeLocalDataSource(
+                changes['dataSource'].currentValue
+            );
         }
     }
 
     public ngOnInit(): void {}
-
-    public ngAfterViewInit(): void {
-        this.handleAboveTableContainerResize(); // initial load
-        this.aboveTableContainerResizeObserver = new ResizeObserver(() => {
-            this.handleAboveTableContainerResize();
-        });
-        this.aboveTableContainerResizeObserver.observe(this.aboveTableContainer.nativeElement);
-    }
-
-    /////////////////////
-    // Private Methods //
-    /////////////////////
-    private handleAboveTableContainerResize(): void {
-        this.stickyHeaderOffset = this.aboveTableContainer.nativeElement.offsetHeight;
-    }
 }
