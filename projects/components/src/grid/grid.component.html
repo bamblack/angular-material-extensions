@@ -3,18 +3,22 @@
     class="amx-grid_above-table--container"
     [style.position]="stickyHeader ? 'sticky' : 'static'"
 >
-    <ng-container *ngIf="hasFiltersContainer">
+    @if(hasFiltersContainer) {
         <div class="amx-grid_filters--container">
             <ng-template [cdkPortalOutlet]="filtersContainerPortal"></ng-template>
         </div>
-    </ng-container>
-    <ng-container *ngIf="api.data.isLocalDataSource">
+    }
+
+    @if(api.data.isLocalDataSource) {
         <div class="amx-grid_total-results--container">
-            <span *ngIf="api.data.totalCount !== api.data.filteredCount">Displaying {{ api.data.filteredCount }} of {{ api.data.totalCount }} total results</span>
-            <span *ngIf="api.data.totalCount === api.data.filteredCount">{{ api.data.totalCount }} results</span>
-            <button mat-button (click)="api.filters.clearFilters()" *ngIf="api.data.totalCount !== api.data.filteredCount">Clear filters</button>
+            @if (api.data.totalCount !== api.data.filteredCount) {
+                Displaying {{ api.data.filteredCount }} of {{ api.data.totalCount }} total results
+                <button mat-button (click)="api.filters.clearFilters()">Clear filters</button>
+            } @else {
+                {{ api.data.totalCount }} results
+            }
         </div>
-    </ng-container>
+    }
 </div>
 <mat-table [dataSource]="api.data.dataSource">
     <ng-container
