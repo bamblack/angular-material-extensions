@@ -20,7 +20,47 @@
         </div>
     }
 </div>
-<mat-table [dataSource]="api.data.dataSource">
+<mat-table [dataSource]="api.data.dataSource" [multiTemplateDataRows]="true">
+    <!-- Group Column and Row Def -->
+    <ng-container matColumnDef="amxGroup">
+        <mat-header-cell *matHeaderCellDef>
+            Group
+        </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"
+            [attr.colspan]="api.columns.matColumns.length"
+            class="amx-grid_group-cell"
+        >
+            @if(row.group) {
+                <div
+                    class="amx-grid_group-cell--wrapper"
+                    [style.padding-left.px]="(row.groupLevel - 1) * 16"
+                >
+                    <mat-icon>
+                        @if(api.rows.expandedGroups.has(row.id)) {
+                            keyboard_arrow_down
+                        } @else {
+                            chevron_right
+                        }
+                    </mat-icon>
+                    <strong>
+                        {{ row.groupName }}
+                    </strong>
+                </div>
+            }
+        </mat-cell>
+    </ng-container>
+    <mat-row
+        *matRowDef="let row; columns: ['amxGroup']; when: groupRowPredicate"
+        class="amx-grid_group-row"
+        (click)="toggleGroup(row.id)">
+    </mat-row>
+    <mat-row
+        *matRowDef="let row; columns: []; when: collapsedGroupRowPredicate"
+        class="amx-grid_collapsed-group-row">
+    </mat-row>
+
+    <!-- Normal Columns and Row Def -->
     <ng-container
         *ngFor="let column of api.columns.columnDefintions"
         [matColumnDef]="column.id"
@@ -30,16 +70,21 @@
         <mat-header-cell *matHeaderCellDef>
             {{ column.headerName ?? column.field }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            {{ element[column.field] }}
+        <mat-cell *matCellDef="let row">
+            <ng-container *amxGridCellRendererOutlet="column.cellRenderer; colDef: column, row: row"></ng-container>
         </mat-cell>
     </ng-container>
-
     <mat-header-row
         *matHeaderRowDef="api.columns.matColumns; sticky: stickyHeader"
         [amxGridStickyHeader]="aboveTableElement"
         [amxGridStickyHeaderSticky]="stickyHeader"
     >
     </mat-header-row>
-    <mat-row *matRowDef="let row; columns: api.columns.matColumns"></mat-row>
+    <!-- Expanded Normal Row Def -->
+    <mat-row *matRowDef="let row; columns: api.columns.matColumns; when: dataRowPredicate;"></mat-row>
+    <!-- Collapsed Normal Row Def -->
+    <mat-row
+        *matRowDef="let row; columns: []; when: collapsedDataRowPredicate;"
+        class="amx-grid_collapsed-data-row">
+    </mat-row>
 </mat-table>

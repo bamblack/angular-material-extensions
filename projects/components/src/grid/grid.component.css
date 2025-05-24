@@ -31,6 +31,16 @@
     padding: 16px 24px;
 }
 
+.amx-grid_collapsed-data-row,
+.amx-grid_collapsed-group-row {
+    display: none;
+}
+
+.amx-grid_group-cell--wrapper {
+    display: flex;
+    align-items: center;
+}
+
 /**
  * This allows us to override the inline styling
  * that mat-table applies for sticky header rows

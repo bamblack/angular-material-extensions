@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { argsToTemplate, moduleMetadata, StoryObj } from '@storybook/angular';
 import periodicData from '../../documentation/periodic-table.json';
+import { AmxGridCellRendererParams } from './cells/rendering/cell-renderer';
 import { AmxGrid } from './grid.component';
 import { AmxGridModule } from './grid.module';
 
@@ -36,7 +37,10 @@ const meta = {
             { id: 'name', field: 'name', headerName: 'Name', type: 'string' },
             {
                 id: 'symbol',
-                field: 'symbol',
+                cellRenderer: (params: AmxGridCellRendererParams) => {
+                    const url = `https://sciencenotes.org/wp-content/uploads/2019/01/${params.row.data.number.toString().padStart(3, '0')}-${params.row.data.name}.png`;
+                    return `<a href="${url}" target="_blank"><img height="45" width="45" src="${url}" /></a>`;
+                },
                 headerName: 'Symbol',
                 type: 'string',
             },
@@ -51,12 +55,13 @@ const meta = {
                 field: 'category',
                 headerName: 'Category',
                 type: 'string',
+                group: true
             },
             {
                 id: 'group',
                 field: 'group',
                 headerName: 'Group',
-                type: 'string',
+                type: 'string'
             },
             {
                 id: 'period',
@@ -77,6 +82,9 @@ const meta = {
                 type: 'string',
             },
         ],
+        grouping: {
+            mode: 'groupRows'
+        },
         stickyHeader: false,
     },
     render: ({ ...args }) => ({
@@ -142,4 +150,8 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<AmxGrid>;
-export const Basic: Story = {};
+export const Basic: Story = {
+    args: {
+        stickyHeader: true
+    }
+};
